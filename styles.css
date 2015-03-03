@@ -1,0 +1,123 @@
+
+
+body{
+	margin: 0px;
+	background: #34495e;
+	font-family: Helvetica;
+}
+
+
+/* App wrapper */
+.todo-wrapper{
+	width: 500px;
+	margin: 100px auto;
+}
+
+/* The actual components */
+.todo-app{
+	width: 100%;
+	background: #ececec;
+	border-radius: 3px;
+	overflow: hidden;
+	padding: 0;
+	box-shadow: 0px 3px 3px rgba(0, 5, 0, .25);
+}
+
+/* List of items to do */
+.todo-list{
+	margin: 0px;
+	padding: 0px;
+	list-style: none;
+}
+
+/* Items in list*/
+.todo-item{
+	display: inline-block;
+	width: 100%;
+	padding: 1em;
+	border-top: 1px solid #bdc3c7;
+	cursor: pointer;
+	background: #ecf0f1;
+	transition: all 100ms ease-in-out;
+}
+/* Styling for them item is marked complete */
+.todo-item[data-complete=true]{
+	background: #c4ced4;
+}
+
+/* Add styling for title when the item is marked completed */
+.todo-item[data-complete=true] > .title{
+	text-decoration: line-through;
+}
+
+/* Title for the list items */
+.title{
+	display: inline-block;
+	margin: 0px;
+}
+
+/* Checkbox for list items */
+.checkbox{
+	display: inline-block;
+	margin-right: .8em;
+}
+
+/* Add item section */
+.add-item-title{
+	font-size: 1.2em;
+	text-indent: 1em;
+	border: 0px;
+	padding: 0px;
+	overflow: hidden;
+	width: calc(100% - 60px);
+	line-height: 60px;
+	outline: none;
+}
+
+/* Button for item adding */
+.add-item-button{
+	float: right;
+	height: 60px;
+	display: block;
+	border: none;
+	background: white;
+	border-left: 1px solid #d2d2d2;
+	color: #1abc9c;
+	font-size: 2em;
+	padding: 0px;
+	width: 60px;
+}
+	.add-item-button:active{
+		background: #ecf0f1;
+	}
+
+.clear{
+	color: #c4ced4;
+	float: right;
+	margin: 1em;
+	font-size: .9em;
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
