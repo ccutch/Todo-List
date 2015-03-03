@@ -16,6 +16,7 @@ module.exports = AddItem = React.createClass
 		</form>
 
 	add: (evnt)->
+		evnt.preventDefault()
 		title = @state.title
 		@props.addItem title
 		@setState

@@ -30707,6 +30707,7 @@ module.exports = AddItem = React.createClass({
   },
   add: function(evnt) {
     var title;
+    evnt.preventDefault();
     title = this.state.title;
     this.props.addItem(title);
     return this.setState({
