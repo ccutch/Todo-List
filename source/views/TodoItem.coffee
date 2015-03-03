@@ -5,14 +5,23 @@ module.exports = TodoItem = React.createClass
 		item = @props.item
 
 		<li key={ @props.key } 
-			onClick={ @props.check } 
 			data-complete={item.get('complete')}
-			className='todo-item'>			
-			
-			<input type='checkbox' 
-				className='checkbox'
-				readOnly={true} 
-				checked={item.get 'complete'}/>
+			data-archived={item.get('archived')}
+			className='todo-item'>		
 
-			<h3 className='title'>{ item.get('title') }</h3>
+			<div className='todo-item-body'
+				onClick={ @props.check } >	
+				
+				<input type='checkbox' 
+					className='checkbox'
+					readOnly={true} 
+					checked={item.get 'complete'}/>
+
+				<h3 className='title'>{ item.get('title') }</h3>
+
+			</div>
+
+			<div className='todo-item-archive' 
+				onClick={ @props.archive }>X</div>
+
 		</li>

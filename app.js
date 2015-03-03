@@ -30676,7 +30676,8 @@ module.exports = TodoItem = Backbone.Model.extend({
   defaults: {
     _id: 0,
     title: '',
-    complete: false
+    complete: false,
+    archived: false
   }
 });
 
@@ -30747,7 +30748,7 @@ module.exports = TodoApp = React.createClass({
       _results = [];
       for (_i = 0, _len = items.length; _i < _len; _i++) {
         item = items[_i];
-        _results.push(this.addItem(item.title, item.complete, item._id));
+        _results.push(this.addItem(item.title, item.complete, item.archived, item._id));
       }
       return _results;
     }
@@ -30761,6 +30762,7 @@ module.exports = TodoApp = React.createClass({
       "addItem": this.addItem
     }), React.createElement(TodoList, {
       "items": this.state.items,
+      "archiveItem": this.archiveItem,
       "checkItem": this.checkItem
     })), React.createElement("a", {
       "className": 'clear',
@@ -30768,10 +30770,13 @@ module.exports = TodoApp = React.createClass({
       "href": '#'
     }, "Clear list"));
   },
-  addItem: function(title, complete, id) {
+  addItem: function(title, complete, archived, id) {
     var items;
     if (complete == null) {
       complete = false;
+    }
+    if (archived == null) {
+      archived = false;
     }
     if (id == null) {
       id = this.state.items.length;
@@ -30782,20 +30787,15 @@ module.exports = TodoApp = React.createClass({
       items.push(new this.props.itemModel({
         title: title,
         complete: complete,
+        archived: archived,
         _id: id
       }));
-      localStorage.items = JSON.stringify(this.state.items);
+      localStorage.items = JSON.stringify(items);
       items.reverse();
       return this.setState({
         items: items
       });
     }
-  },
-  clear: function(evnt) {
-    this.setState({
-      items: []
-    });
-    return localStorage.items = JSON.stringify([]);
   },
   checkItem: function(id) {
     return (function(_this) {
@@ -30805,13 +30805,35 @@ module.exports = TodoApp = React.createClass({
         items.reverse();
         item = items[id];
         items[id].set('complete', !item.get('complete'));
-        localStorage.items = JSON.stringify(_this.state.items);
+        localStorage.items = JSON.stringify(items);
         items.reverse();
         return _this.setState({
           items: items
         });
       };
     })(this);
+  },
+  archiveItem: function(id) {
+    return (function(_this) {
+      return function(evnt) {
+        var items;
+        items = _this.state.items;
+        console.log(items);
+        items.reverse();
+        items[id].set('archived', true);
+        localStorage.items = JSON.stringify(items);
+        items.reverse();
+        return _this.setState({
+          items: items
+        });
+      };
+    })(this);
+  },
+  clear: function(evnt) {
+    this.setState({
+      items: []
+    });
+    return localStorage.items = JSON.stringify([]);
   }
 });
 
@@ -30826,9 +30848,12 @@ module.exports = TodoItem = React.createClass({
     item = this.props.item;
     return React.createElement("li", {
       "key": this.props.key,
-      "onClick": this.props.check,
       "data-complete": item.get('complete'),
+      "data-archived": item.get('archived'),
       "className": 'todo-item'
+    }, React.createElement("div", {
+      "className": 'todo-item-body',
+      "onClick": this.props.check
     }, React.createElement("input", {
       "type": 'checkbox',
       "className": 'checkbox',
@@ -30836,7 +30861,10 @@ module.exports = TodoItem = React.createClass({
       "checked": item.get('complete')
     }), React.createElement("h3", {
       "className": 'title'
-    }, item.get('title')));
+    }, item.get('title'))), React.createElement("div", {
+      "className": 'todo-item-archive',
+      "onClick": this.props.archive
+    }, "X"));
   }
 });
 
@@ -30857,6 +30885,7 @@ module.exports = TodoList = React.createClass({
         return React.createElement(TodoItem, {
           "item": item,
           "key": id,
+          "archive": _this.props.archiveItem(id),
           "check": _this.props.checkItem(id)
         });
       };

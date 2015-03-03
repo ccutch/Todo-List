@@ -8,3 +8,4 @@ module.exports = TodoItem = Backbone.Model.extend
 		_id: 0
 		title: ''
 		complete: false
+		archived: false
