@@ -4,6 +4,7 @@ body{
 	margin: 0px;
 	background: #34495e;
 	font-family: Helvetica;
+	padding: 0px 20px;
 }
 
 
@@ -15,7 +16,6 @@ body{
 
 /* The actual components */
 .todo-app{
-	width: 100%;
 	background: #ececec;
 	border-radius: 3px;
 	overflow: hidden;
