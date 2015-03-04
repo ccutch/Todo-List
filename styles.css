@@ -136,7 +136,42 @@ body{
 
 
 
+.cookie-notification{
+	position: fixed;
+	background: #e74c3c;
+	border: none;
+	width: calc(100% - 6em);
+	top: 0;
+	left: 0;
+	padding: 0 3em;
+	overflow: hidden;
+	max-height: 0;
+	transition: all 300ms ease-in-out;
 
+}
+.cookie-notification[data-active=true]{
+	max-height: 1.5em;
+	border-bottom: 2px solid #c0392b;
+}
+.cookie-notification-text{
+	color: white;
+	margin: .25em 0;
+	display: block;
+	float: left;
+}
+.cookie-notification-text > a{
+	color: #ecf0f1;
+}
+.cookie-notification-close{
+	border-radius: 100%;
+	border: 0px;
+	background:#ecf0f1;
+	color: #34495e;
+	float: right;
+	height: 1.65em;
+	width: 1.65em;
+	margin: .25em 0;
+}
 
 
 

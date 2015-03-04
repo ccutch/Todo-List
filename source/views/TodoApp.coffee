@@ -1,6 +1,6 @@
 TodoList = require('./TodoList.coffee')
 AddItem = require('./AddItem.coffee')
-
+CookieNotification = require('./CookieNotification.coffee')
 
 module.exports = TodoApp = React.createClass
 	getInitialState: ->
@@ -16,6 +16,7 @@ module.exports = TodoApp = React.createClass
 				@addItem item.title, item.complete, item.archived, item._id
 	render: ->
 		<div className='todo-wrapper'>
+			<CookieNotification />
 			<div className='todo-app'>
 				<AddItem addItem={@addItem} />
 				<TodoList items={@state.items}

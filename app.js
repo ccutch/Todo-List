@@ -30665,7 +30665,7 @@ React.render(React.createElement(TodoApp, {
 
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"./models/TodoItem.coffee":152,"./views/TodoApp.coffee":154,"backbone":2,"jquery":3,"react":149,"underscore":150}],152:[function(require,module,exports){
+},{"./models/TodoItem.coffee":152,"./views/TodoApp.coffee":155,"backbone":2,"jquery":3,"react":149,"underscore":150}],152:[function(require,module,exports){
 
 /*
 This is the Backbone models for the todo list. Next step is adding in persistant data with a server
@@ -30725,11 +30725,53 @@ module.exports = AddItem = React.createClass({
 
 
 },{}],154:[function(require,module,exports){
-var AddItem, TodoApp, TodoList;
+var CookieNotification;
+
+module.exports = CookieNotification = React.createClass({
+  getInitialState: function() {
+    return {
+      active: false
+    };
+  },
+  componentDidMount: function() {
+    return setTimeout(((function(_this) {
+      return function() {
+        return _this.setState({
+          active: true
+        });
+      };
+    })(this)), 500);
+  },
+  close: function() {
+    return this.setState({
+      active: false
+    });
+  },
+  render: function() {
+    return React.createElement("div", {
+      "className": 'cookie-notification',
+      "data-active": this.state.active
+    }, React.createElement("span", {
+      "className": 'cookie-notification-text'
+    }, "\t\t\t\tWe are using your browsers local storage to store data that is essencial for this app. If you would like more information please ", React.createElement("a", {
+      "href": 'mailto:connormccutcheon95@gmail.com'
+    }, "send me an email.")), React.createElement("button", {
+      "className": 'cookie-notification-close',
+      "onClick": this.close
+    }, "X"));
+  }
+});
+
+
+
+},{}],155:[function(require,module,exports){
+var AddItem, CookieNotification, TodoApp, TodoList;
 
 TodoList = require('./TodoList.coffee');
 
 AddItem = require('./AddItem.coffee');
+
+CookieNotification = require('./CookieNotification.coffee');
 
 module.exports = TodoApp = React.createClass({
   getInitialState: function() {
@@ -30756,7 +30798,7 @@ module.exports = TodoApp = React.createClass({
   render: function() {
     return React.createElement("div", {
       "className": 'todo-wrapper'
-    }, React.createElement("div", {
+    }, React.createElement(CookieNotification, null), React.createElement("div", {
       "className": 'todo-app'
     }, React.createElement(AddItem, {
       "addItem": this.addItem
@@ -30839,7 +30881,7 @@ module.exports = TodoApp = React.createClass({
 
 
 
-},{"./AddItem.coffee":153,"./TodoList.coffee":156}],155:[function(require,module,exports){
+},{"./AddItem.coffee":153,"./CookieNotification.coffee":154,"./TodoList.coffee":157}],156:[function(require,module,exports){
 var TodoItem;
 
 module.exports = TodoItem = React.createClass({
@@ -30870,7 +30912,7 @@ module.exports = TodoItem = React.createClass({
 
 
 
-},{}],156:[function(require,module,exports){
+},{}],157:[function(require,module,exports){
 var TodoItem, TodoList;
 
 TodoItem = require('./TodoItem.coffee');
@@ -30898,4 +30940,4 @@ module.exports = TodoList = React.createClass({
 
 
 
-},{"./TodoItem.coffee":155}]},{},[151]);
+},{"./TodoItem.coffee":156}]},{},[151]);
